@@ -1,0 +1,14 @@
+---
+- hosts: all
+  tasks:
+    - name : register command output
+      command: uptime
+      register: up_time
+   
+    - name: Display registered value
+      debug:
+        var: up_time 
+
+    - name: Filter  command ouput from registered uptime
+      debug:
+        msg: Uptime is "{{up_time.stdout}}"

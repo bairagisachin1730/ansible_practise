@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+   - name: use group var
+     debug:
+             msg: value is {{pkg}}
+           

@@ -1,2 +1,2 @@
 # ansible_practise
-# This is regular practise to wirte ansible playbook and handle day o day task automation
+# This is regular practise to write ansible playbook and handle day to day task automation

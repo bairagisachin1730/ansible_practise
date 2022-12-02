@@ -1,0 +1,13 @@
+---
+- name: Collect and use ansible facts
+  hosts: all
+  tasks:
+    - name: collect ansible distribution fact and show
+      debug:
+        msg: "Ansible distribution is {{ansible_facts.distribution}}"
+    - name: Check and print msg if ansible distribution is same
+      debug:
+        msg: "Ansible distribution is {{ansible_facts.distribution}} and version is {{ansible_facts.distribution_version}} for this host. "
+      when: 
+          - ansible_facts.distribution == "CentOS"
+          - ansible_facts.distribution_version == "7.9"

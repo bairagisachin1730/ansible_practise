@@ -25,4 +25,20 @@
       debug:
         msg: "{{item}}"
       loop: "{{pkgs | dict2items}}"
-      ## Loop requiresa list, soin order to do it, we conver dictionary to list
+      ## Loop requires list, in order to convert dict to list, we convert dictionary to list
+
+    - name: loop over range of 10
+      debug:
+        msg: "Count is : {{item}}"
+      loop: "{{range(10) | list}}"
+
+    - name: loop over range of even numbers
+      debug:
+        msg: "Count is : {{item}}"
+      loop: "{{range(0,11,2) | list}}"
+
+    - name: loop over range of even numbers when item divisible by 2
+      debug:
+        msg: "Count is : {{item}}"
+      loop: "{{range(1,20) | list}}"
+      when: item%2 == 0

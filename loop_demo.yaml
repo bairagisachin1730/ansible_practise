@@ -1,0 +1,28 @@
+---
+- hosts: all
+  vars:
+    contries: ["India","Lanka","New york","US"]
+    students:
+      - name: yaman
+        id: 5
+      - name: Rohan
+        id: 2
+    pkgs:
+     name: httpd
+     vendor: apache
+     version: 7 
+    
+  tasks:
+    - name: loop over contries and students
+      debug:
+        msg: "{{item}}"
+      loop: "{{contries}}"
+    - name: loop over students
+      debug:
+        msg: "Student name is : {{item.name}}, roll no is: {{item.id}}"
+      loop: "{{students}}"
+    - name: loop over dictionary
+      debug:
+        msg: "{{item}}"
+      loop: "{{pkgs | dict2items}}"
+      ## Loop requiresa list, soin order to do it, we conver dictionary to list

@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+   - name: get inventory hostvars
+     debug:
+        var: "hostvars[inventory_hostname]"
+## Adhoc command for same: ansible all -m debug -a "var=hostvars[inventory_hostname]"
+## Check specific hostvar: ansible all -m debug -a "var=hostvars[inventory_hostname]['groups']"

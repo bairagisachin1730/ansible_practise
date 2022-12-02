@@ -42,3 +42,9 @@
         msg: "Count is : {{item}}"
       loop: "{{range(1,20) | list}}"
       when: item%2 == 0
+
+    - name: loop over inventories
+      command: ping -c 1 "{{item}}"
+      loop: "{{groups['all']}}"
+  ## the grous is default groups for all our inventories and part of hostvars
+

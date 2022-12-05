@@ -1,0 +1,16 @@
+---
+- hosts: all
+  # become: yes
+  # become_user: root
+  # become_method: sudo
+  tasks:
+    - name: create group and add user to the group using notify
+      group:
+        name: mygroup
+      notify: addusers
+  handlers:
+    - name: addusers
+      user:
+        name: extscb
+        groups: mygroup
+        append: yes

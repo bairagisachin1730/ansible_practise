@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+    - name: Using block for error handling
+      block:
+        - name: check uptime
+          command: uptime
+        - name: Check wrong command
+          command: lifetime
+          ## We can use ignore_errors: true to allow execution in case o any errors
+        - name: third block that will never run
+          debug:
+            msg: "This block will never run as second block has error"
+      rescue:
+        - name: Run resuce block if command fails in block
+          debug:
+            msg: "Lets fix the error here from the block"
+      always:
+         - name: THis block will alwaysrun
+           debug:
+             msg: I wil always run !!
+              
+        

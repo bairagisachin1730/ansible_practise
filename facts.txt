@@ -28,3 +28,50 @@ facts
   when: ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_version']|int >= 10
 
 - include: configure.yml
+
+#################################################
+Venv
+
+python3 -m venv project_env_lms
+
+source project_env_lms/bin/activate
+
+python -m pip install -r requirements.txt
+
+gunicorn --workers 1 --bind 0.0.0.0:9999 lms.wsgi --daemon
+
+#############################################################3
+
+kill $(ps -ef | grep 0.0.0.0:9999 |grep | awk '{print $2}'|head -1)
+cp -R /var/lib/jenkins/workspace/Deploy_LMS_App/* /opt/jenkins/python_dev/lms/
+source /opt/jenkins/python_dev/project_env_lms/bin/activate
+cd /opt/jenkins/python_dev/lms/
+python -m pip install -r requirements.txt
+gunicorn --workers 1 --bind 0.0.0.0:9999 lms.wsgi --daemon
+
+### cp -R /var/lib/jenkins/workspace/Deploy_LMS_App/* /opt/jenkins/python_dev/lms/
+
+
+cd /opt/jenkins/python_dev/lms/ && source /opt/jenkins/python_dev/project_env_lms/bin/activate && gunicorn --workers 1 --bind 0.0.0.0:9999 lms.wsgi --daemon
+
+https://serverfault.com/questions/897623/per-job-environments-in-jenkins-with-virtualenv
+https://stackoverflow.com/questions/40836570/jenkinsfile-and-python-virtualenv
+https://askubuntu.com/questions/756728/cannot-activate-python-virtual-env-in-jenkins-shell-script
+https://www.youtube.com/watch?v=gMz-RtSVMZs
+https://naiveskill.com/jenkins-job-to-create-python-virtual-env/
+
+https://stackoverflow.com/questions/13122137/how-to-source-virtualenv-activate-in-a-bash-script
+
+https://superuser.com/questions/176783/what-is-the-difference-between-executing-a-bash-script-vs-sourcing-it#:%7E:text=Sourcing%20a%20script%20will%20run,in%20a%20new%20shell%20process
+https://www.geeksforgeeks.org/creating-python-virtual-environment-windows-linux/
+https://superuser.com/questions/1547228/how-to-activate-python-virtualenv-through-shell-script
+
+https://softwaretester.info/jenkins-and-virtualenv/
+https://stackoverflow.com/questions/21103727/how-to-tell-jenkins-to-use-a-particular-virtualenv-python
+
+https://plugins.jenkins.io/pyenv-pipeline/
+
+export PATH=/opt/jenkins/python_dev/project_env_lms/bin:$PATH
+/opt/jenkins/python_dev/project_env_lms/bin
+
+https://virtualenvwrapper.readthedocs.io/en/latest/
